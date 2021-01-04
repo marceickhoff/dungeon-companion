@@ -10,11 +10,11 @@ mix.setPublicPath('public');
 
 // Files
 mix.sass('src/scss/app.scss', 'css/app.css');
+mix.js('src/js/app.js', 'js/app.js').vue().extract();
 mix.js([
-	'src/js/app.js',
 	'node_modules/@fortawesome/fontawesome-pro/js/solid.js',
 	'node_modules/@fortawesome/fontawesome-pro/js/fontawesome.js'
-], 'js/app.js').vue().extract();
+], 'js/icons.js');
 
 // Additional PostCSS plugins
 mix.options({
