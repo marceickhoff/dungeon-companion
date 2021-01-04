@@ -2,6 +2,9 @@
   "name": "dungeon-companion",
   "main": "server/server.js",
   "private": true,
+  "scripts": {
+    "postinstall": "npx mix --production"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-pro": "^5.15.1",
     "laravel-mix": "^6.0.6",
