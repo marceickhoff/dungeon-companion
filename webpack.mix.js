@@ -14,7 +14,7 @@ mix.js([
 	'src/js/app.js',
 	'node_modules/@fortawesome/fontawesome-pro/js/solid.js',
 	'node_modules/@fortawesome/fontawesome-pro/js/fontawesome.js'
-], 'js/app.js').extract();
+], 'js/app.js').vue().extract();
 
 // Additional PostCSS plugins
 mix.options({
