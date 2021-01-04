@@ -1,7 +1,23 @@
 {
   "name": "dungeon-companion",
   "main": "server/server.js",
+  "version": "1.0.0",
+  "description": "Collaborative web-based Node.js companion app and score tracker for the role-playing card game \"Munchkin\".",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marceickhoff/dungeon-companion.git"
+  },
+  "author": {
+    "name": "Marc Eickhoff",
+    "email": "mail@marceickhoff.com",
+    "url": "https://marceickhoff.com/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marceickhoff/dungeon-companion/issues"
+  },
+  "homepage": "https://dungeon-companion.marceickhoff.dev",
   "scripts": {
     "postinstall": "npx mix --production"
   },
