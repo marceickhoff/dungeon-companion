@@ -1,5 +1,7 @@
 const UniqueEntity = require('./UniqueEntity');
 const Party = require('./party');
+const Socket = require('../util/Socket');
+const config = require('../../config.json');
 
 /**
  * A player.
@@ -50,26 +52,31 @@ class Player extends UniqueEntity {
 		super();
 		this.socket = socket;
 		let query = socket.handshake.query;
-		socket.emit('player.self', {
-			uuid: this.uuid
-		});
+		socket.emit('player.self', {uuid: this.uuid});
 		this.fromQuery(query);
 		this.registerSocketEvents();
-		if (!this.name) socket.on('party.create', data => {
-			this.setName(data.name);
-			this.createParty();
-		});
-		else if (this.getParty()) {
-			this.createParty();
+		if (this.name) {
+			if (this.party) this.party.join(this);
+			else this.createParty();
+		}
+		else {
+			if (this.party) socket.on('party.join', data => {
+				this.setName(data.name);
+				this.party.join(this);
+			});
+			else socket.on('party.join', data => {
+				this.setName(data.name);
+				this.createParty();
+			});
 		}
 	}
 
+	/**
+	 * Creates a new party and joins this player.
+	 */
 	createParty() {
 		this.party = new Party;
 		this.party.join(this);
-		this.socket.on('disconnect', () => {
-			this.party.leave(this);
-		});
 	}
 
 	/**
@@ -78,10 +85,21 @@ class Player extends UniqueEntity {
 	 */
 	fromQuery(query) {
 		if (query.name) this.setName(query.name);
-		if (query.party) this.party = Party.getById(String(query.party));
-		if (query.level) this.setLevel(query.level);
-		if (query.buff) this.setBuff(query.buff);
-		if (query.mod) this.setMod(query.mod);
+		if (query.party) {
+			this.party = Party.get(String(query.party));
+		}
+		if (!query.party || query.latestParty === query.party) {
+			if (query.level) this.setLevel(query.level);
+			if (query.buff) this.setBuff(query.buff);
+			if (query.mod) this.setMod(query.mod);
+		}
+		if (query.uuid && this.party) {
+			let battle = this.party.getBattle();
+			if (battle) {
+				if (battle.initiator.uuid === query.uuid) battle.update({ initiator: this });
+				else if (battle.assist && battle.assist.uuid === query.uuid) battle.update({ assist: this });
+			}
+		}
 	}
 
 	/**
@@ -89,19 +107,19 @@ class Player extends UniqueEntity {
 	 */
 	registerSocketEvents() {
 		// Player events
-		this.socket.on('player.update', (data) => { data.hasOwnProperty('uuid') ? this.getParty()?.getPlayer(data.uuid)?.update(data) : this.update(data) });
-		this.socket.on('player.name', (data) => { this.setName(data.name) });
+		this.socket.on('player.update', (data) => (data && data.hasOwnProperty('uuid')) ? this.getParty()?.getPlayer(data.uuid)?.update(data) : this.update(data));
+		this.socket.on('player.name', (data) => { if (data) this.setName(data.name) });
 
 		// Battle events
-		this.socket.on('battle.start', () => { this.getParty()?.getBattle()?.start(this) });
-		this.socket.on('battle.end', () => { this.getParty()?.getBattle()?.end() });
-		this.socket.on('battle.join', () => { this.getParty()?.getBattle()?.join(this) });
-		this.socket.on('battle.leave', () => { this.getParty()?.getBattle()?.leave() });
+		this.socket.on('battle.start', () => this.getParty()?.startBattle(this));
+		this.socket.on('battle.end', () => this.getParty()?.endBattle());
+		this.socket.on('battle.join', () => this.getParty()?.getBattle()?.join(this));
+		this.socket.on('battle.leave', () => this.getParty()?.getBattle()?.leave());
 
 		// Monster events
-		this.socket.on('monster.add', () => { this.getParty()?.getBattle()?.addMonster() });
-		this.socket.on('monster.remove', (data) => { if (data.hasOwnProperty('uuid')) this.getParty()?.getBattle()?.removeMonster(data.uuid) });
-		this.socket.on('monster.update', (data) => { if (data.hasOwnProperty('uuid')) this.getParty()?.getBattle()?.getMonster(data.uuid)?.update(data) });
+		this.socket.on('monster.add', () => this.getParty()?.getBattle()?.addMonster());
+		this.socket.on('monster.remove', (data) => { if (data && data.hasOwnProperty('uuid')) this.getParty()?.getBattle()?.removeMonster(data.uuid) });
+		this.socket.on('monster.update', (data) => { if (data && data.hasOwnProperty('uuid')) this.getParty()?.getBattle()?.getMonster(data.uuid)?.update(data) });
 	}
 
 	/**
@@ -109,7 +127,8 @@ class Player extends UniqueEntity {
 	 * @param {String} name
 	 */
 	setName(name) {
-		this.name = String(name).substring(0, 20);
+		name = String(name);
+		if (name && name.substring(0, config.maxNameLength)) this.name = name;
 	}
 
 	/**
@@ -117,10 +136,7 @@ class Player extends UniqueEntity {
 	 * @param {number} level
 	 */
 	setLevel(level) {
-		if (isNaN(level = Number(level))) return;
-		if (level >= 1 && level <= 10) {
-			this.level = level | 0;
-		}
+		if (!isNaN(level = Number(level)) && level >= 1 && level <= 10) this.level = level | 0;
 	}
 
 	/**
@@ -128,8 +144,7 @@ class Player extends UniqueEntity {
 	 * @param {number} buff
 	 */
 	setBuff(buff) {
-		if (isNaN(buff = Number(buff))) return;
-		this.buff = buff | 0;
+		if (!isNaN(buff = Number(buff))) this.buff = buff | 0;
 	}
 
 	/**
@@ -137,8 +152,7 @@ class Player extends UniqueEntity {
 	 * @param {number} mod
 	 */
 	setMod(mod) {
-		if (isNaN(mod = Number(mod))) return;
-		this.mod = mod | 0;
+		if (!isNaN(mod = Number(mod))) this.mod = mod | 0;
 	}
 
 	/**
@@ -151,7 +165,7 @@ class Player extends UniqueEntity {
 
 	/**
 	 * Updates and broadcasts this player's data to the party.
-	 * @param {{name: String, level: number, buff: number, mod: number}} data
+	 * @param {{name: String|undefined, level: number|undefined, buff: number|undefined, mod: number|undefined}} data
 	 */
 	update(data) {
 		if (data.hasOwnProperty('name')) this.setName(data.name);
@@ -170,7 +184,8 @@ class Player extends UniqueEntity {
 			uuid: this.uuid,
 			name: this.name,
 			level: this.level,
-			buff: this.buff
+			buff: this.buff,
+			mod: this.mod
 		}
 	}
 }

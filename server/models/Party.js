@@ -37,7 +37,7 @@ class Party {
 	 */
 	constructor() {
 		do this.id = randomstring.generate(10);
-		while (Party.getById(this.id));
+		while (Party.get(this.id));
 		Party.parties.push(this);
 	}
 
@@ -46,25 +46,40 @@ class Party {
 	 * @param {String} id
 	 * @return {Party}
 	 */
-	static getById(id) {
-		return Party.parties.find(room => room.id === id);
+	static get(id) {
+		return Party.parties.find(party => party.id === id);
 	}
 
 	/**
 	 * Adds a player to this party.
-	 * @param player
+	 * @param {Player} player
 	 */
 	join(player) {
+		this.removeDuplicates(player);
 		this.players.push(player);
 		player.party = this;
 		player.socket.join(this.id);
 		player.socket.to(this.id).emit('party.join', player.bundle());
 		player.socket.emit('party.init', this.bundle());
+		player.socket.on('disconnect', () => this.leave(player));
+	}
+
+	/**
+	 * Removes all players from this party that have connected using the same UUID in the handshake query as the given player.
+	 * This prevents users from spamming the refresh button, occasionally connecting multiple instances of themselves.
+	 * @param {Player} player
+	 */
+	removeDuplicates(player) {
+		for (let p of this.getPlayers()) {
+			if (p.uuid === player.socket.handshake.query.uuid) {
+				this.leave(p);
+			}
+		}
 	}
 
 	/**
 	 * Checks if a given player has joined this party.
-	 * @param player
+	 * @param {Player} player
 	 * @return {boolean}
 	 */
 	joined(player) {
@@ -73,13 +88,13 @@ class Party {
 
 	/**
 	 * Removes a player from this party.
-	 * @param player
+	 * @param {Player} player
 	 */
 	leave(player) {
 		player.party = null;
-		let index = this.getPlayers().findIndex(p => p.uuid === player.uuid);
-		this.players.splice(index, 1);
-		if (this.players.length === 0) this.destroy();
+		this.players = this.getPlayers().filter(p => p.uuid !== player.uuid);
+		player.socket.to(this.id).emit('party.leave', player.bundle());
+		if (this.getBattle() && this.getBattle().initiator.uuid === player.uuid) this.endBattle();
 	}
 
 	/**
@@ -101,7 +116,7 @@ class Party {
 
 	/**
 	 * Starts a new battle in this party.
-	 * @param initiator
+	 * @param {Player} initiator
 	 */
 	startBattle(initiator) {
 		if (this.getBattle()) return;
@@ -129,10 +144,11 @@ class Party {
 
 	/**
 	 * Emits a message to every player of this party.
+	 * @param {String} event
 	 * @param data
 	 */
-	emit(data) {
-		Socket.io.to(this.id).emit(data);
+	emit(event, data) {
+		Socket.io.to(this.id).emit(event, data);
 	}
 
 	/**
@@ -145,14 +161,6 @@ class Party {
 			players: this.getPlayers().map(player => player.bundle()),
 			battle: this.getBattle()?.bundle() ?? null
 		}
-	}
-
-	/**
-	 * Destroys this party.
-	 */
-	destroy() {
-		let index = Party.parties.findIndex(party => party.id === this.id);
-		Party.parties.splice(index, 1);
 	}
 }
 

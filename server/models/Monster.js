@@ -38,10 +38,7 @@ class Monster extends UniqueEntity {
 	 * @param level
 	 */
 	setLevel(level) {
-		if (isNaN(level = Number(level))) return;
-		if (level >= 1) {
-			this.level = level | 0;
-		}
+		if (!isNaN(level = Number(level)) && level >= 1) this.level = level | 0;
 	}
 
 	/**
@@ -49,8 +46,7 @@ class Monster extends UniqueEntity {
 	 * @param mod
 	 */
 	setMod(mod) {
-		if (isNaN(mod = Number(mod))) return;
-		this.mod = mod | 0;
+		if (!isNaN(mod = Number(mod))) this.mod = mod | 0;
 	}
 
 	/**

@@ -38,6 +38,7 @@ class Battle {
 		this.party = party;
 		this.initiator = initiator;
 		this.resetPlayerMod();
+		this.addMonster();
 		party.emit('battle.start', this.bundle());
 	}
 
@@ -53,8 +54,8 @@ class Battle {
 	 * @param {Player} player
 	 */
 	join(player) {
-		if (this.assist) return;
-		this.assist.player = player;
+		if (this.assist || this.initiator.uuid === player.uuid) return;
+		this.assist = player;
 		this.party.emit('battle.join', {
 			uuid: player.uuid
 		});
@@ -73,7 +74,7 @@ class Battle {
 	 * Resets the one-shot modifier of all players.
 	 */
 	resetPlayerMod() {
-		for (let player of this.party.getPlayers()) player.setMod(0);
+		for (let player of this.party.getPlayers()) player.update({ mod: 0 });
 	}
 
 	/**
@@ -82,7 +83,7 @@ class Battle {
 	addMonster() {
 		let monster = new Monster(this);
 		this.monsters.push(monster);
-		this.party.emit('battle.monster.add', monster.bundle());
+		this.party.emit('monster.add', monster.bundle());
 	}
 
 	/**
@@ -90,16 +91,7 @@ class Battle {
 	 * @param {String} uuid
 	 */
 	removeMonster(uuid) {
-		let monsters = this.getMonsters();
-		if (monsters) {
-			let index = monsters.findIndex(monster => monster.uuid === uuid);
-			if (index) {
-				monsters.splice(index, 1);
-				this.getParty().emit('battle.monster.remove', {
-					uuid
-				});
-			}
-		}
+		this.monsters = this.getMonsters().filter(monster => monster.uuid !== uuid);
 	}
 
 	/**
@@ -128,13 +120,24 @@ class Battle {
 	}
 
 	/**
+	 * Updates and broadcasts the data of this battle to the party.
+	 * @param {{initiator: Player|undefined, assist: Player|undefined, monsters: Monster[]|undefined}} data
+	 */
+	update(data) {
+		if (data.hasOwnProperty('initiator')) this.initiator = data.initiator;
+		if (data.hasOwnProperty('assist')) this.assist = data.assist;
+		if (data.hasOwnProperty('monsters')) this.monsters = data.monsters;
+		this.getParty().emit('battle.update', this.bundle());
+	}
+
+	/**
 	 * Bundles data of this object to be sent to the clients.
-	 * @return {{initiator: {mod: number, uuid: (String|Player.uuid|null|string)}, assist: {mod: number, uuid: (String|Player.uuid|null|string)}, monsters: []}}
+	 * @return {{initiator: String, assist: (String|null), monsters: *[]}}
 	 */
 	bundle() {
 		return {
-			initiator: this.initiator,
-			assist: this.assist,
+			initiator: this.initiator.uuid,
+			assist: this.assist?.uuid ?? null,
 			monsters: this.getMonsters().map(monster => monster.bundle())
 		}
 	}
