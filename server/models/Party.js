@@ -1,6 +1,7 @@
 const Socket = require('../util/Socket');
 const Battle = require('./Battle');
 const randomstring = require('randomstring');
+const config = require('../../config.json');
 
 /**
  * Players can join a party.
@@ -13,6 +14,10 @@ class Party {
 	 * @type {String}
 	 */
 	id;
+
+	/**
+	 */
+	timeout;
 
 	/**
 	 * A list of all players in this party.
@@ -42,6 +47,17 @@ class Party {
 	}
 
 	/**
+	 * Destroys this party.
+	 */
+	destroy() {
+		if (this.getBattle()) this.endBattle();
+		delete this.players;
+		let index = Party.parties.findIndex(party => party.id === this.id);
+		delete Party.parties[index];
+		Party.parties.splice(index, 1);
+	}
+
+	/**
 	 * Returns the party with the given ID.
 	 * @param {String} id
 	 * @return {Party}
@@ -55,6 +71,7 @@ class Party {
 	 * @param {Player} player
 	 */
 	join(player) {
+		clearTimeout(this.timeout);
 		this.removeDuplicates(player);
 		this.players.push(player);
 		player.party = this;
@@ -95,6 +112,7 @@ class Party {
 		this.players = this.getPlayers().filter(p => p.uuid !== player.uuid);
 		player.socket.to(this.id).emit('party.leave', player.bundle());
 		if (this.getBattle() && this.getBattle().initiator.uuid === player.uuid) this.endBattle();
+		if (this.getPlayers().length === 0) this.timeout = setTimeout(() => this.destroy(), config.partyTimeout);
 	}
 
 	/**
@@ -130,7 +148,7 @@ class Party {
 		let battle = this.getBattle();
 		if (battle) {
 			battle.end();
-			this.battle = null;
+			delete this.battle;
 		}
 	}
 

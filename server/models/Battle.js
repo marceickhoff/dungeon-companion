@@ -46,6 +46,7 @@ class Battle {
 	 * Ends the battle.
 	 */
 	end() {
+		delete this.monsters;
 		this.party.emit('battle.end');
 	}
 
