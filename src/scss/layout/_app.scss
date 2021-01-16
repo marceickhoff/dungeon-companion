@@ -10,8 +10,8 @@
 	@include size(100%);
 	min-height: 30em;
 	grid-template-areas:
-		"controls controls"
 		"header header"
+		"controls controls"
 		"leaderboard leaderboard";
 	grid-template-columns: auto;
 	grid-template-rows: min-content min-content auto;
