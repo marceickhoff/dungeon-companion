@@ -1,5 +1,5 @@
 const UniqueEntity = require('./UniqueEntity');
-const Party = require('./party');
+const Party = require('./Party');
 const Socket = require('../util/Socket');
 const config = require('../../config.json');
 
