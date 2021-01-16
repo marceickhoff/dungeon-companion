@@ -1,0 +1,15 @@
+//----------------------------------------------------------------------------------------------------------------------
+// INPUT ELEMENTS
+//----------------------------------------------------------------------------------------------------------------------
+
+input[type=text] {
+	font: inherit;
+	display: block;
+	width: 100%;
+	padding: .5em 1em;
+	text-align: center;
+	color: inherit;
+	border: none;
+	border-radius: $border-radius;
+	background: $body-background-color-dark;
+}

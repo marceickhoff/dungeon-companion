@@ -1,0 +1,30 @@
+//----------------------------------------------------------------------------------------------------------------------
+// INDIVIDUAL ENTITY CARD
+//----------------------------------------------------------------------------------------------------------------------
+
+.entity {
+	position: relative;
+	padding: 1em;
+
+	// Contains tally counters
+	.entity-stats {
+		display: grid;
+		grid-auto-columns: minmax(3em, 1fr);
+		grid-auto-flow: column;
+		justify-items: center;
+	}
+
+	// The name of the entity
+	.entity-name {
+		margin-bottom: 1em;
+		text-align: center;
+	}
+
+	// Button to remove entity
+	.entity-remove {
+		font-size: .75em;
+		display: block;
+		width: 100%;
+		margin: 1em auto 0;
+	}
+}

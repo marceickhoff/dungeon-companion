@@ -1,4 +1,10 @@
 module.exports = {
-  "options": [],
-  "feature-detects": []
+  "feature-detects": [
+  	"test/url/urlsearchparams",
+  	"test/storage/localstorage",
+  	"test/es6/promises",
+  	"test/css/flexbox",
+    "test/css/cssgrid",
+    "test/css/transforms"
+  ]
 };

@@ -1,0 +1,35 @@
+//----------------------------------------------------------------------------------------------------------------------
+// INVITE
+//----------------------------------------------------------------------------------------------------------------------
+
+// Modal
+.invite {
+	text-align: center;
+
+	// Buttons for manual invites
+	.invite-actions {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 2em;
+		grid-gap: 1em;
+
+		// Single button
+		.button {
+			line-height: 2.5em;
+			display: block;
+			width: 100%;
+
+			// Icon
+			[data-icon] {
+				font-size: 1.5em;
+				margin-right: .25em;
+				vertical-align: -.25em;
+			}
+		}
+
+		// Applied on button when copying of party URL was successful
+		.invite-copy-success {
+			color: $color-success;
+		}
+	}
+}

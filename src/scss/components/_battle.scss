@@ -1,0 +1,147 @@
+//----------------------------------------------------------------------------------------------------------------------
+// BATTLE
+//----------------------------------------------------------------------------------------------------------------------
+
+// "Start battle" container and button
+.start-battle {
+	margin-top: 1em;
+	padding: 0 .5em 1em;
+
+	.button {
+		line-height: 2em;
+		width: 100%;
+	}
+}
+
+// Modal
+.battle {
+
+	// Make modal container borderless
+	&.modal {
+		.modal-container {
+			position: relative;
+			padding-right: 0;
+			padding-bottom: 0;
+			padding-left: 0;
+		}
+	}
+
+	// Overflow container for battle entities
+	.battle-entities {
+		display: grid;
+		overflow-x: auto;
+		padding-left: 1em;
+		grid-gap: 1em;
+		grid-auto-columns: 1fr;
+		grid-auto-flow: column;
+
+		// Container for individual entities
+		.battle-entity-container {
+			width: 100%;
+			max-width: 15em;
+			justify-self: center;
+
+			// Add padding to compensate borderless modal
+			&:last-child {
+				padding-right: 1em;
+			}
+		}
+	}
+
+	// Tally counters
+	.tally-counter {
+		.tally-counter-label {
+			font-size: .75em;
+		}
+	}
+
+	// Display for current battle state
+	.battle-state {
+		display: grid;
+		align-items: center;
+		max-width: 22em;
+		margin: 1em auto;
+		padding: 0 1em;
+		text-align: center;
+		grid-auto-columns: 1fr;
+		grid-auto-flow: column;
+		grid-gap: .5em;
+
+		// Icon for each side of the battle
+		.battle-state-icon {
+			font-size: 1.5em;
+			color: $font-color-light;
+		}
+
+		// "vs" divider
+		.battle-state-vs {
+			padding: 0 1em;
+			color: $font-color-light;
+		}
+
+		// Actual score sum number
+		.battle-state-strength {
+			font-size: 3em;
+		}
+	}
+
+
+	// Leaderboard
+	.leaderboard {
+		margin-top: 1em;
+	}
+
+	// Buttons for joining battle and adding monsters
+	.battle-action {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+		padding: 1em;
+		border-radius: $border-radius;
+		background: $body-background-color-dark;
+	}
+
+	// An individual entity
+	.entity {
+		width: 100%;
+		border-radius: $border-radius;
+		background: $body-background-color-dark;
+
+		// Tally counters
+		.tally-counter-increase, .tally-counter-decrease {
+			width: 2em;
+			height: 2em;
+		}
+
+		// Player entity
+		&.player {
+			.entity-name {
+				max-width: calc(100vw - 6em + 1em);
+				margin-right: auto;
+				margin-left: auto;
+			}
+		}
+	}
+
+	// Main battle controls (end/leave)
+	.battle-controls {
+		display: grid;
+		margin-top: 1em;
+		padding: 0 1em;
+		grid-gap: 1em;
+		grid-auto-columns: 1fr;
+		grid-auto-flow: column;
+
+		.button {
+			line-height: 2em;
+			width: 100%;
+		}
+	}
+
+	// Special font size on landscape
+	@media all and (orientation: landscape) {
+		font-size: 2vh;
+	}
+}

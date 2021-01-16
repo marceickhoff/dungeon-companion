@@ -1,24 +1,59 @@
 {
   "name": "dungeon-companion",
   "main": "server/server.js",
+  "version": "1.0.0",
+  "description": "Collaborative web-based Node.js companion app and score tracker for the role-playing card game \"Munchkin\".",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marceickhoff/dungeon-companion.git"
+  },
+  "author": {
+    "name": "Marc Eickhoff",
+    "email": "mail@marceickhoff.com",
+    "url": "https://marceickhoff.com/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marceickhoff/dungeon-companion/issues"
+  },
+  "homepage": "https://dungeon-companion.marceickhoff.dev",
   "scripts": {
+    "start": "forever start server/server.js",
+    "stop": "forever stop server/server.js",
     "postinstall": "npx mix --production"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-pro": "^5.15.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-brands-svg-icons": "^5.15.1",
+    "@fortawesome/pro-regular-svg-icons": "^5.15.1",
+    "@fortawesome/pro-solid-svg-icons": "^5.15.1",
+    "@fortawesome/vue-fontawesome": "^2.0.2",
+    "bourbon": "^7.0.0",
+    "clipboard-copy": "^4.0.1",
+    "express": "^4.17.1",
+    "forever": "^3.0.4",
     "laravel-mix": "^6.0.6",
     "laravel-mix-clean-css": "^1.3.1",
     "laravel-mix-modernizr": "^1.0.2",
     "mqpacker": "^7.0.0",
+    "nosleep.js": "^0.12.0",
+    "qrcode": "^1.4.4",
+    "randomstring": "^1.1.5",
+    "reset-css": "^5.0.1",
     "socket.io": "^3.0.4",
+    "socket.io-client": "^3.0.4",
+    "uuid": "^3.4.0",
     "vue": "^2.6.12",
+    "vue-socket.io": "^3.0.10",
     "vuex": "^3.6.0"
   },
   "devDependencies": {
     "postcss": "^8.1.14",
     "resolve-url-loader": "^3.1.2",
     "sass": "^1.32.0",
-    "sass-loader": "^8.0.2"
+    "sass-loader": "^8.0.2",
+    "vue-loader": "^15.9.5",
+    "vue-template-compiler": "^2.6.12"
   }
 }
