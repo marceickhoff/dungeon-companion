@@ -27,10 +27,10 @@ class Player extends UniqueEntity {
 	level = 1;
 
 	/**
-	 * The buff modifier of this player.
+	 * The bonus modifier of this player.
 	 * @type {number}
 	 */
-	buff = 0;
+	bonus = 0;
 
 	/**
 	 * The one-shot modifier of this player.
@@ -90,7 +90,7 @@ class Player extends UniqueEntity {
 		}
 		if (!query.party || query.latestParty === query.party) {
 			if (query.level) this.setLevel(query.level);
-			if (query.buff) this.setBuff(query.buff);
+			if (query.bonus) this.setBonus(query.bonus);
 			if (query.mod) this.setMod(query.mod);
 		}
 		if (query.uuid && this.party) {
@@ -140,11 +140,11 @@ class Player extends UniqueEntity {
 	}
 
 	/**
-	 * Sets this player's buff modifier.
-	 * @param {number} buff
+	 * Sets this player's bonus modifier.
+	 * @param {number} bonus
 	 */
-	setBuff(buff) {
-		if (!isNaN(buff = Number(buff))) this.buff = buff | 0;
+	setBonus(bonus) {
+		if (!isNaN(bonus = Number(bonus))) this.bonus = bonus | 0;
 	}
 
 	/**
@@ -165,26 +165,26 @@ class Player extends UniqueEntity {
 
 	/**
 	 * Updates and broadcasts this player's data to the party.
-	 * @param {{name: String|undefined, level: number|undefined, buff: number|undefined, mod: number|undefined}} data
+	 * @param {{name: String|undefined, level: number|undefined, bonus: number|undefined, mod: number|undefined}} data
 	 */
 	update(data) {
 		if (data.hasOwnProperty('name')) this.setName(data.name);
 		if (data.hasOwnProperty('level')) this.setLevel(data.level);
-		if (data.hasOwnProperty('buff')) this.setBuff(data.buff);
+		if (data.hasOwnProperty('bonus')) this.setBonus(data.bonus);
 		if (data.hasOwnProperty('mod')) this.setMod(data.mod);
 		this.getParty()?.emit('player.update', this.bundle());
 	}
 
 	/**
 	 * Bundles data of this object to be sent to the clients.
-	 * @return {{level: number, name: String, uuid: String, buff: number}}
+	 * @return {{level: number, name: String, uuid: String, bonus: number}}
 	 */
 	bundle() {
 		return {
 			uuid: this.uuid,
 			name: this.name,
 			level: this.level,
-			buff: this.buff,
+			bonus: this.bonus,
 			mod: this.mod
 		}
 	}

@@ -5,7 +5,7 @@ export default {
 	 */
 	query: function() {
 		let query = window.location.search ? window.location.search.substring(1) : '';
-		['uuid', 'name', 'level', 'buff', 'mod', 'latestParty'].forEach(property => {
+		['uuid', 'name', 'level', 'bonus', 'mod', 'latestParty'].forEach(property => {
 			let value = localStorage.getItem(property);
 			if (value !== null && typeof value !== 'undefined') query += '&' + property + '=' + value;
 		});

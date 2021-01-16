@@ -3,9 +3,9 @@
 		<div class="entity-name" v-if="!hideName">{{ data.name }}</div>
 		<div class="entity-stats">
 			<tally-counter v-if="showTally('level')" label="Level" :min="1" :max="10" :value="data.level" @increase="increaseLevel" @decrease="decreaseLevel"></tally-counter>
-			<tally-counter v-if="showTally('buff')" label="Buff" :value="data.buff" @increase="increaseBuff" @decrease="decreaseBuff"></tally-counter>
+			<tally-counter v-if="showTally('bonus')" label="Bonus" :value="data.bonus" @increase="increaseBonus" @decrease="decreaseBonus"></tally-counter>
 			<tally-counter v-if="showTally('mod')" label="One-Shot" :value="data.mod" @increase="increaseMod" @decrease="decreaseMod"></tally-counter>
-			<tally-counter v-if="showTally('total')" :controls="false" label="Sum" :value="data.level + data.buff"></tally-counter>
+			<tally-counter v-if="showTally('total')" :controls="false" label="Sum" :value="data.level + data.bonus"></tally-counter>
 		</div>
 	</div>
 </template>
@@ -48,11 +48,11 @@ export default {
 				this.update({ level: this.data.level - 1 });
 			}
 		},
-		increaseBuff: function() {
-			this.update({ buff: this.data.buff + 1 });
+		increaseBonus: function() {
+			this.update({ bonus: this.data.bonus + 1 });
 		},
-		decreaseBuff: function() {
-			this.update({ buff: this.data.buff - 1 });
+		decreaseBonus: function() {
+			this.update({ bonus: this.data.bonus - 1 });
 		},
 		increaseMod: function() {
 			this.update({ mod: this.data.mod + 1 });

@@ -171,7 +171,7 @@ class Party {
 
 	/**
 	 * Bundles data of this object to be sent to the clients.
-	 * @return {{battle: ({battle: {initiator: String, assist: (String|null), monsters: *[]}, players: *[]}|{level: number, name: String, uuid: String, buff: number}|{initiator: {mod: number, uuid: (String|Player.uuid|null|string)}, assist: {mod: number, uuid: (String|Player.uuid|null|string)}, monsters: *[]}|{mod: number, level: number}|null), players: *[], id: String}}
+	 * @return {{battle: ({battle: {initiator: String, assist: (String|null), monsters: *[]}, players: *[]}|{level: number, name: String, uuid: String, bonus: number}|{initiator: {mod: number, uuid: (String|Player.uuid|null|string)}, assist: {mod: number, uuid: (String|Player.uuid|null|string)}, monsters: *[]}|{mod: number, level: number}|null), players: *[], id: String}}
 	 */
 	bundle() {
 		return {

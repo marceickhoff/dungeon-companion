@@ -8,10 +8,10 @@
 				<div class="modal-headline"><fa icon="swords"></fa> Battle!</div>
 				<div class="battle-entities battle-players">
 					<div class="battle-entity-container battle-player-container" v-if="initiator">
-						<player :data="initiator" :tallies="['level', 'buff', 'mod']"/>
+						<player :data="initiator" :tallies="['level', 'bonus', 'mod']"/>
 					</div>
 					<div class="battle-entity-container battle-player-container" v-if="assist">
-						<player :data="assist" :tallies="['level', 'buff', 'mod']"/>
+						<player :data="assist" :tallies="['level', 'bonus', 'mod']"/>
 					</div>
 					<div class="battle-entity-container battle-player-container" v-else-if="initiator.uuid !== self.uuid">
 						<div class="battle-action">
@@ -80,8 +80,8 @@ export default {
 			'monsters'
 		]),
 		playerStrength: function() {
-			let strength = this.initiator.level + this.initiator.buff + this.initiator.mod;
-			if (this.assist) strength += this.assist.level + this.assist.buff + this.assist.mod;
+			let strength = this.initiator.level + this.initiator.bonus + this.initiator.mod;
+			if (this.assist) strength += this.assist.level + this.assist.bonus + this.assist.mod;
 			return strength;
 		},
 		monsterStrength: function() {

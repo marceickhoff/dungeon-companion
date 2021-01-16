@@ -7,7 +7,7 @@ const config = require('../../../../config.json');
  */
 const updateLocalStorage = function(state, data) {
 	if (data.uuid === state.self) {
-		['name', 'level', 'buff', 'mod'].forEach(property => {
+		['name', 'level', 'bonus', 'mod'].forEach(property => {
 			if (typeof data[property] !== 'undefined') localStorage.setItem(property, data[property])
 		})
 	}
@@ -22,9 +22,9 @@ export default {
 	getters: {
 		self: state => state.self ? state.players.find(player => player.uuid === state.self) : null,
 		players: state => state.players.sort((a, b) => {
-			// Sort players by level, then buff, then alphabetically
+			// Sort players by level, then bonus, then alphabetically
 			if (a.level !== b.level) return a.level < b.level ? 1 : -1;
-			else if (a.buff !== b.buff) return a.buff < b.buff ? 1 : -1;
+			else if (a.bonus !== b.bonus) return a.bonus < b.bonus ? 1 : -1;
 			else return a.name > b.name ? 1 : -1;
 		})
 	},
