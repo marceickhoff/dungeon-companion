@@ -1,6 +1,0 @@
-{
-  "port": 3001,
-  "maxNameLength": 20,
-  "connectionTimeout": 5000,
-  "partyTimeout": 3600000
-}
