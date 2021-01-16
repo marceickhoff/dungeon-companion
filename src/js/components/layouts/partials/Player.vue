@@ -1,10 +1,12 @@
 <template>
-	<div class="player">
-		<span v-if="!hideName">{{ data.name }}</span>
-		<tally-counter v-if="showTally('level')" label="Level" :min="1" :max="10" :value="data.level" @increase="increaseLevel" @decrease="decreaseLevel"></tally-counter>
-		<tally-counter v-if="showTally('buff')" label="Buff" :value="data.buff" @increase="increaseBuff" @decrease="decreaseBuff"></tally-counter>
-		<tally-counter v-if="showTally('mod')" label="Mod" :value="data.mod" @increase="increaseMod" @decrease="decreaseMod"></tally-counter>
-		<tally-counter v-if="showTally('total')" :controls="false" label="Total" :value="data.level + data.buff"></tally-counter>
+	<div class="entity player">
+		<div class="entity-name" v-if="!hideName">{{ data.name }}</div>
+		<div class="entity-stats">
+			<tally-counter v-if="showTally('level')" label="Level" :min="1" :max="10" :value="data.level" @increase="increaseLevel" @decrease="decreaseLevel"></tally-counter>
+			<tally-counter v-if="showTally('buff')" label="Buff" :value="data.buff" @increase="increaseBuff" @decrease="decreaseBuff"></tally-counter>
+			<tally-counter v-if="showTally('mod')" label="One-Shot" :value="data.mod" @increase="increaseMod" @decrease="decreaseMod"></tally-counter>
+			<tally-counter v-if="showTally('total')" :controls="false" label="Sum" :value="data.level + data.buff"></tally-counter>
+		</div>
 	</div>
 </template>
 <script>

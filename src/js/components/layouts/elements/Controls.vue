@@ -1,5 +1,5 @@
 <template>
-	<div class="player-controls">
+	<div class="controls">
 		<player v-if="self" :data="self" :tallies="['level', 'buff', 'total']" :hide-name="true"/>
 		<battle/>
 	</div>

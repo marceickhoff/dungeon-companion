@@ -1,31 +1,24 @@
 <template>
 	<div class="app">
-		<header class="header">
-			<player-name/>
-			<party-invite/>
-		</header>
-		<main class="body">
-			<player-controls/>
-			<leaderboard/>
-		</main>
-		<connection-lost class="connection-lost"/>
+		<header-bar/>
+		<controls/>
+		<leaderboard/>
+		<connection-lost/>
 	</div>
 </template>
 
 <script>
 import ConnectionLost from './elements/ConnectionLost';
+import Controls from './elements/Controls';
 import Leaderboard from './elements/Leaderboard';
-import PartyInvite from './elements/PartyInvite';
-import PlayerControls from './elements/PlayerControls';
-import PlayerName from './elements/PlayerName';
+import HeaderBar from './elements/HeaderBar';
 
 export default {
 	components: {
 		'connection-lost': ConnectionLost,
 		'leaderboard': Leaderboard,
-		'party-invite': PartyInvite,
-		'player-controls': PlayerControls,
-		'player-name': PlayerName,
+		'controls': Controls,
+		'header-bar': HeaderBar
 	}
 }
 </script>

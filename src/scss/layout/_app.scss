@@ -1,0 +1,58 @@
+//----------------------------------------------------------------------------------------------------------------------
+// MAIN APP LAYOUT
+//----------------------------------------------------------------------------------------------------------------------
+
+.app {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: grid;
+	@include size(100%);
+	min-height: 30em;
+	grid-template-areas:
+		"controls controls"
+		"header header"
+		"leaderboard leaderboard";
+	grid-template-columns: auto;
+	grid-template-rows: min-content min-content auto;
+
+	// Landscape view
+	@media all and (orientation: landscape) {
+		grid-template-areas:
+			"header leaderboard"
+			"controls leaderboard";
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: min-content auto;
+
+		// Add shadow to left side of leaderboard
+		> .leaderboard {
+			position: relative;
+
+			&:after {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 1em;
+				height: 100%;
+				content: '';
+				pointer-events: none;
+				background: linear-gradient(to right, rgba($color-primary, .1), transparent);
+			}
+		}
+	}
+
+	// Header bar
+	.header {
+		grid-area: header;
+	}
+
+	// Player controls
+	.controls {
+		grid-area: controls;
+	}
+
+	// Leaderboard
+	.leaderboard {
+		grid-area: leaderboard;
+	}
+}

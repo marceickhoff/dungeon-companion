@@ -1,16 +1,46 @@
 <template>
 	<div>
-		<button @click="startBattle"><fa icon="swords"/> Start battle</button>
-		<modal :active="active" class="battle" v-if="initiator">
-			<slot>
-				<player v-if="initiator" :data="initiator" :tallies="['level', 'buff', 'mod']"/>
-				<player v-if="assist" :data="assist" :tallies="['level', 'buff', 'mod']"/>
-				<button v-else-if="initiator.uuid !== self.uuid" @click="joinBattle"><fa icon="swords"/> Join</button>
-				<button v-if="assist && assist.uuid === self.uuid" @click="leaveBattle"><fa icon="running"/></button>
-				<button @click="endBattle"><fa icon="swords"/> End battle</button>
-				<button @click="addMonster"><fa icon="pastafarianism"/> Add</button>
-				<monster v-for="monster in monsters" :key="monster.uuid" :data="monster"/>
-				<p><fa icon="user-friends" v-if="assist"/><fa v-else icon="user"/> {{ playerStrength }} vs {{ monsterStrength }} <fa icon="pastafarianism"/></p>
+		<div class="start-battle">
+			<button @click="startBattle" class="button big"><fa icon="swords"/> Start battle</button>
+		</div>
+		<modal :active="active" class="battle">
+			<slot v-if="initiator">
+				<div class="modal-headline"><fa icon="swords"></fa> Battle!</div>
+				<div class="battle-entities battle-players">
+					<div class="battle-entity-container battle-player-container" v-if="initiator">
+						<player :data="initiator" :tallies="['level', 'buff', 'mod']"/>
+					</div>
+					<div class="battle-entity-container battle-player-container" v-if="assist">
+						<player :data="assist" :tallies="['level', 'buff', 'mod']"/>
+					</div>
+					<div class="battle-entity-container battle-player-container" v-else-if="initiator.uuid !== self.uuid">
+						<div class="battle-action">
+							<button class="button big" @click="joinBattle"><fa icon="hands-helping"/> Assist</button>
+						</div>
+					</div>
+				</div>
+				<div class="battle-state">
+					<span class="battle-state-icon"><fa icon="user-friends" v-if="assist"/><fa v-else icon="user"/></span>
+					<span class="battle-state-strength">{{ playerStrength }}</span>
+					<span class="battle-state-vs">vs</span>
+					<span class="battle-state-strength">{{ monsterStrength }}</span>
+					<span class="battle-state-icon"><fa icon="pastafarianism"/></span>
+				</div>
+				<div class="battle-entities battle-monsters">
+					<div class="battle-entity-container battle-monster-container" v-for="monster in monsters">
+						<monster :key="monster.uuid" :data="monster"/>
+					</div>
+					<div class="battle-entity-container battle-monster-container">
+						<div class="battle-action">
+							<button class="button big" @click="addMonster"><fa icon="pastafarianism"/> Add</button>
+						</div>
+					</div>
+				</div>
+				<div class="battle-controls">
+					<button class="battle-end button big success" @click="endBattle"><fa icon="dungeon"/> End battle</button>
+					<button class="battle-leave button big error" v-if="assist && assist.uuid === self.uuid" @click="leaveBattle"><fa icon="running"/> Bail</button>
+				</div>
+				<leaderboard/>
 			</slot>
 		</modal>
 	</div>
@@ -19,13 +49,15 @@
 import Modal from '../../base/Modal';
 import Monster from '../partials/Monster';
 import Player from '../partials/Player';
+import Leaderboard from "./Leaderboard";
 import {mapActions, mapGetters} from "vuex";
 
 export default {
 	components: {
 		'modal': Modal,
 		'monster': Monster,
-		'player': Player
+		'player': Player,
+		'leaderboard': Leaderboard
 	},
 	data() {
 		return {

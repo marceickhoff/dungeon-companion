@@ -1,5 +1,5 @@
 <template>
-	<div class="error">
+	<div class="error-message">
 		<p><fa icon="exclamation-triangle"/> {{ message }}</p>
 	</div>
 </template>

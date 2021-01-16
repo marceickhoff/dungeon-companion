@@ -1,0 +1,27 @@
+//----------------------------------------------------------------------------------------------------------------------
+// TABLES
+//----------------------------------------------------------------------------------------------------------------------
+
+table {
+	width: 100%;
+	table-layout: fixed;
+
+	td, th {
+		padding: 1em;
+	}
+
+	thead {
+		tr {
+			color: white;
+			background-color: $color-primary;
+		}
+	}
+
+	tbody {
+		tr:nth-child(even) {
+			td {
+				background: $body-background-color-dark;
+			}
+		}
+	}
+}

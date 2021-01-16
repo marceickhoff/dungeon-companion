@@ -1,0 +1,26 @@
+//----------------------------------------------------------------------------------------------------------------------
+// SETUP LAYOUT
+//----------------------------------------------------------------------------------------------------------------------
+
+.setup {
+	padding: 1em;
+	text-align: center;
+
+	// Form for entering initial player data
+	.setup-form {
+		width: 100%;
+		margin-top: 1em;
+
+		// Name input
+		input#name {
+			font-size: 2em;
+			margin-bottom: 1em;
+		}
+
+		// Submit button
+		> .button {
+			line-height: 2em;
+			width: 100%;
+		}
+	}
+}

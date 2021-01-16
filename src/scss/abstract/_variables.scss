@@ -1,0 +1,23 @@
+// Colors
+$color-primary: #5a3228;
+$color-secondary: #faaa00;
+$color-success: #008500;
+$color-error: #d41c00;
+
+// Body
+$body-background-color: #f0e6dc;
+$body-background-color-dark: darken($body-background-color, 10%);
+
+// Borders
+$border-radius: .25em;
+
+// Font
+$font-stack: McLaren, sans-serif;
+$font-weight: 400;
+$font-color-dark: darken($color-primary, 50%);
+$font-color: $color-primary;
+$font-color-light: rgba($color-primary, .5);
+
+// Transitions
+$transition-function: cubic-bezier(.85, 0, .5, 1);
+$transition-duration: .5s;

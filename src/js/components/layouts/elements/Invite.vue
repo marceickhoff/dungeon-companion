@@ -1,12 +1,19 @@
 <template>
-	<div>
-		<button @click="openModal"><fa icon="user-plus"/></button>
-		<modal :active="modal" class="party-invite">
+	<div class="invite-button">
+		<button class="show-invite button inverted" @click="openModal"><fa icon="user-plus"/></button>
+		<modal :active="modal" class="invite">
 			<slot>
+				<div class="modal-headline"><fa icon="user-plus"></fa> Invite your friends</div>
+				<p>Let your friends scan this QR code to join your party:</p>
 				<qr-code :data="url"/>
-				<a :href="'whatsapp://send?text=' + url" data-action="share/whatsapp/share"><fa :icon="['fab', 'whatsapp']"/> Share party link on WhatsApp</a>
-				<button @click="copyUrlToClipboard"><span v-show="copySuccess"><fa icon="check"/> Link copied</span><span v-show="!copySuccess"><fa icon="clipboard"/> Copy party link to clipboard</span></button>
-				<button @click="closeModal"><fa icon="check"/> Done</button>
+				<p>Or alternatively: </p>
+				<div class="invite-actions">
+					<a class="button" role="button" :href="'whatsapp://send?text=' + url" data-action="share/whatsapp/share"><fa :icon="['fab', 'whatsapp']"/> Share link on WhatsApp</a>
+					<button class="button" @click="copyUrlToClipboard"><span v-show="copySuccess" class="invite-copy-success"><fa icon="clipboard-check"/> Link copied</span><span v-show="!copySuccess"><fa :icon="['far', 'clipboard']"/> Copy link</span></button>
+				</div>
+				<div class="modal-actions">
+					<button class="button big success" @click="closeModal"><fa icon="check"/> Done</button>
+				</div>
 			</slot>
 		</modal>
 	</div>

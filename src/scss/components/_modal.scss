@@ -1,0 +1,59 @@
+//----------------------------------------------------------------------------------------------------------------------
+// MODAL
+//----------------------------------------------------------------------------------------------------------------------
+
+.modal {
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	padding: 1em;
+	transition: opacity $transition-duration $transition-function;
+	opacity: 1;
+	color: $font-color;
+	@include size(100%);
+	background: rgba(black, .5);
+
+	// Inactive state
+	&:not(.modal-active) {
+		pointer-events: none;
+		opacity: 0;
+
+		.modal-container {
+			transform: scale(0) translateY(-50%);
+		}
+	}
+
+	// Inner container
+	.modal-container {
+		overflow-y: auto;
+		max-width: 50em;
+		max-height: 100%;
+		margin: 0 auto;
+		padding: 1em;
+		transition: transform $transition-duration $transition-function;
+		transform: scale(1) translateY(0);
+		border-radius: $border-radius;
+		background: $body-background-color;
+
+		// Modal headline
+		.modal-headline {
+			font-size: 1.5em;
+			margin-bottom: 1em;
+			text-align: center;
+		}
+
+		// Modal actions
+		.modal-actions {
+			display: grid;
+			margin-top: 1em;
+			grid-auto-columns: 1fr;
+			grid-auto-flow: column;
+			grid-gap: 1em;
+
+			.button.big {
+				line-height: 2.5em;
+			}
+		}
+	}
+}

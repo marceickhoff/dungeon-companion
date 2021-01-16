@@ -1,9 +1,10 @@
 <template>
 	<div class="qr-code">
-		<img v-if="dataUri" :src="dataUri" :alt="data">
+		<img v-if="uri" :src="uri" :alt="data">
 		<span v-else>Loading...</span>
 	</div>
 </template>
+
 <script>
 import QRCode from 'qrcode'
 
@@ -15,13 +16,15 @@ export default {
 		}
 	},
 	mounted() {
-		QRCode.toDataURL(this.data, (err, uri) => {
-			this.dataUri = uri;
+		QRCode.toDataURL(this.data, {
+			scale: 10
+		}, (err, uri) => {
+			this.uri = uri;
 		});
 	},
 	data() {
 		return {
-			dataUri: null
+			uri: null
 		}
 	}
 }

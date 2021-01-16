@@ -1,8 +1,11 @@
 <template>
-	<div class="player">
-		<button v-if="monsters.length > 1" @click="remove"><fa icon="times"></fa></button>
-		<tally-counter label="Level" :min="1" :value="data.level" @increase="increaseLevel" @decrease="decreaseLevel"></tally-counter>
-		<tally-counter label="Mod" :value="data.mod" @increase="increaseMod" @decrease="decreaseMod"></tally-counter>
+	<div class="entity monster">
+		<div class="entity-name">Monster</div>
+		<div class="entity-stats">
+			<tally-counter label="Level" :min="1" :value="data.level" @increase="increaseLevel" @decrease="decreaseLevel"></tally-counter>
+			<tally-counter label="One-Shot" :value="data.mod" @increase="increaseMod" @decrease="decreaseMod"></tally-counter>
+		</div>
+		<button class="entity-remove button" :disabled="monsters.length <= 1" @click="remove"><fa icon="times"></fa> Remove</button>
 	</div>
 </template>
 <script>

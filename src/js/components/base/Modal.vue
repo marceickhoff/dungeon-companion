@@ -12,6 +12,10 @@ export default {
 		active: {
 			type: Boolean,
 			required: true
+		},
+		headline: {
+			type: String,
+			required: false
 		}
 	}
 }
