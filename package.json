@@ -19,7 +19,8 @@
   },
   "homepage": "https://dungeon-companion.marceickhoff.dev",
   "scripts": {
-    "server": "node server/server.js",
+    "start": "forever start server/server.js",
+    "stop": "forever stop server/server.js",
     "postinstall": "npx mix --production"
   },
   "dependencies": {
@@ -31,6 +32,7 @@
     "bourbon": "^7.0.0",
     "clipboard-copy": "^4.0.1",
     "express": "^4.17.1",
+    "forever": "^3.0.4",
     "laravel-mix": "^6.0.6",
     "laravel-mix-clean-css": "^1.3.1",
     "laravel-mix-modernizr": "^1.0.2",
