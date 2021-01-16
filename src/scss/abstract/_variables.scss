@@ -1,11 +1,11 @@
 // Colors
-$color-primary: #5a3228;
-$color-secondary: #faaa00;
-$color-success: #008500;
-$color-error: #d41c00;
+$color-primary: rgb(90, 50, 40);
+$color-secondary: rgb(250, 170, 0);
+$color-success: rgb(0, 130, 0);
+$color-error: rgb(210, 30, 0);
 
 // Body
-$body-background-color: #f0e6dc;
+$body-background-color: rgb(240, 230, 220);
 $body-background-color-dark: darken($body-background-color, 10%);
 
 // Borders
