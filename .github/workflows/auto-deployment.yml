@@ -1,0 +1,17 @@
+name: Auto Deployment
+on:
+  push:
+    branches: [ master, stage ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: FranzDiebold/github-env-vars-action@v1.2.1
+      - name: Run deployment script
+        uses: appleboy/ssh-action@master
+        with:
+          script: ./deployments/${{ env.GITHUB_REPOSITORY_NAME }}/${{ env.GITHUB_REF_NAME }}.sh
+          host: ${{ secrets.AUTO_DEPLOYMENT_HOST }}
+          username: ${{ secrets.AUTO_DEPLOYMENT_USER }}
+          password: ${{ secrets.AUTO_DEPLOYMENT_PASSWORD }}
