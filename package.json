@@ -43,7 +43,7 @@
     "reset-css": "^5.0.1",
     "socket.io": "^3.0.4",
     "socket.io-client": "^3.0.4",
-    "uuid": "^3.4.0",
+    "uuid": "^8.3.2",
     "vue": "^2.6.12",
     "vue-socket.io": "^3.0.10",
     "vuex": "^3.6.0"
