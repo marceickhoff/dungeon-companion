@@ -93,6 +93,7 @@ class Battle {
 	 */
 	removeMonster(uuid) {
 		this.monsters = this.getMonsters().filter(monster => monster.uuid !== uuid);
+		this.party.emit('monster.remove', { uuid });
 	}
 
 	/**
