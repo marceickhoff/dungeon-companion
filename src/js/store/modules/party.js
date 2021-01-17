@@ -12,7 +12,7 @@ export default {
 		},
 	},
 	actions: {
-		'socket.party.init': ({ commit }, data) => {
+		'socket.party.init': ({ commit, rootState }, data) => {
 			commit('setId', data);
 			localStorage.setItem('latestParty', data.id);
 			window.history.replaceState(null, null, '?party='+data.id);
@@ -22,6 +22,7 @@ export default {
 				commit('battle/update', data.battle, { root: true });
 				data.battle.monsters.forEach(monster => commit('monsters/add', monster, { root: true }));
 			}
+			else if (rootState.battle.active) commit('battle/end', null, { root: true });
 		},
 	}
 }

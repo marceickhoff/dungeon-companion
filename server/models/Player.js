@@ -2,6 +2,7 @@ const UniqueEntity = require('./UniqueEntity');
 const Party = require('./Party');
 const Socket = require('../util/Socket');
 const config = require('../../config.json');
+const uuid = require('uuid');
 
 /**
  * A player.
@@ -107,7 +108,7 @@ class Player extends UniqueEntity {
 	 */
 	registerSocketEvents() {
 		// Player events
-		this.socket.on('player.update', (data) => (data && data.hasOwnProperty('uuid')) ? this.getParty()?.getPlayer(data.uuid)?.update(data) : this.update(data));
+		this.socket.on('player.update', (data) => (data && data.hasOwnProperty('uuid') && uuid.validate(data.uuid)) ? this.getParty()?.getPlayer(data.uuid)?.update(data) : this.update(data));
 		this.socket.on('player.name', (data) => { if (data) this.setName(data.name) });
 
 		// Battle events
@@ -118,8 +119,8 @@ class Player extends UniqueEntity {
 
 		// Monster events
 		this.socket.on('monster.add', () => this.getParty()?.getBattle()?.addMonster());
-		this.socket.on('monster.remove', (data) => { if (data && data.hasOwnProperty('uuid')) this.getParty()?.getBattle()?.removeMonster(data.uuid) });
-		this.socket.on('monster.update', (data) => { if (data && data.hasOwnProperty('uuid')) this.getParty()?.getBattle()?.getMonster(data.uuid)?.update(data) });
+		this.socket.on('monster.remove', (data) => { if (data && data.hasOwnProperty('uuid') && uuid.validate(data.uuid)) this.getParty()?.getBattle()?.removeMonster(data.uuid) });
+		this.socket.on('monster.update', (data) => { if (data && data.hasOwnProperty('uuid') && uuid.validate(data.uuid)) this.getParty()?.getBattle()?.getMonster(data.uuid)?.update(data) });
 	}
 
 	/**
