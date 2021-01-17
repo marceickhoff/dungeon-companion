@@ -28,15 +28,14 @@ export default {
 		}
 	},
 	methods: {
-		submit: function(event) {
+		submit: function (event) {
 			event.preventDefault();
 			if (this.name) {
 				localStorage.setItem('name', this.name);
 				this.$socket.emit('party.join', {
 					name: this.name
 				});
-			}
-			else {
+			} else {
 				this.error = true;
 				document.getElementById('name').focus();
 			}

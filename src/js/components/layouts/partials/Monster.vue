@@ -10,7 +10,7 @@
 </template>
 <script>
 import TallyCounter from '../../base/TallyCounter';
-import {mapActions, mapGetters} from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
 	components: {
@@ -32,25 +32,25 @@ export default {
 			'updateMonster',
 			'removeMonster'
 		]),
-		increaseLevel: function() {
-			this.update({ level: this.data.level + 1 });
+		increaseLevel: function () {
+			this.update({level: this.data.level + 1});
 		},
-		decreaseLevel: function() {
+		decreaseLevel: function () {
 			if (this.data.level > 1) {
-				this.update({ level: this.data.level - 1 });
+				this.update({level: this.data.level - 1});
 			}
 		},
-		increaseMod: function() {
-			this.update({ mod: this.data.mod + 1 });
+		increaseMod: function () {
+			this.update({mod: this.data.mod + 1});
 		},
-		decreaseMod: function() {
-			this.update({ mod: this.data.mod - 1 });
+		decreaseMod: function () {
+			this.update({mod: this.data.mod - 1});
 		},
-		update: function(data) {
+		update: function (data) {
 			this.updateMonster(Object.assign({}, this.data, data));
 		},
-		remove: function() {
-			this.removeMonster({ uuid: this.data.uuid });
+		remove: function () {
+			this.removeMonster({uuid: this.data.uuid});
 		}
 	}
 }

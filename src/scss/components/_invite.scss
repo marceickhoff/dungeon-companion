@@ -11,13 +11,17 @@
 		display: flex;
 		flex-direction: column;
 		margin-bottom: 2em;
-		grid-gap: 1em;
 
 		// Single button
 		.button {
 			line-height: 2.5em;
 			display: block;
 			width: 100%;
+
+			// Space between buttons
+			&:not(:first-child) {
+				margin-top: 1em;
+			}
 
 			// Icon
 			[data-icon] {

@@ -3,14 +3,14 @@
 		<div class="header-container">
 			<invite/>
 			<div class="name">{{ self.name }}</div>
-      <name-change/>
+			<name-change/>
 		</div>
 	</header>
 </template>
 <script>
 import Invite from "./Invite";
 import NameChange from "./NameChange";
-import {mapGetters} from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
 	components: {

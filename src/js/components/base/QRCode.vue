@@ -1,7 +1,7 @@
 <template>
 	<div class="qr-code">
 		<img v-if="uri" :src="uri" :alt="data">
-		<span v-else>Loading...</span>
+		<span v-else><fa icon="spinner-third" class="fa-spin"/> Loading QR Code...</span>
 	</div>
 </template>
 
@@ -15,16 +15,28 @@ export default {
 			required: true
 		}
 	},
-	mounted() {
-		QRCode.toDataURL(this.data, {
-			scale: 10
-		}, (err, uri) => {
-			this.uri = uri;
-		});
-	},
 	data() {
 		return {
 			uri: null
+		}
+	},
+	mounted() {
+		this.setUri();
+	},
+	watch: {
+		data: function () {
+			this.setUri();
+		}
+	},
+	methods: {
+		setUri: function () {
+			QRCode.toDataURL(
+				this.data, {
+					scale: 10
+				}, (err, uri) => {
+					this.uri = uri;
+				}
+			);
 		}
 	}
 }

@@ -1,29 +1,31 @@
 {
-  "name": "Dungeon Companion",
-  "short_name": "Dungeon Companion",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#f0e6dc",
-  "description": "Collaborative web-based Node.js companion app and score tracker for the role-playing card game \"Munchkin\" by Steve Jackson.",
-  "orientation": "portrait",
-  "icons": [{
-    "src": "img/icon/icon-app.png",
-    "sizes": "48x48",
-    "type": "image/png"
-  },
-  {
-    "src": "img/icon/icon-app@1,5x.png",
-    "sizes": "72x72",
-    "type": "image/png"
-  },
-  {
-    "src": "img/icon/icon-app@2x.png",
-    "sizes": "96x96",
-    "type": "image/png"
-  },
-  {
-    "src": "img/icon/icon-app@3x.png",
-    "sizes": "144x144",
-    "type": "image/png"
-  }]
+	"name": "Dungeon Companion",
+	"short_name": "Dungeon Companion",
+	"start_url": ".",
+	"display": "standalone",
+	"background_color": "#f0e6dc",
+	"description": "Collaborative web-based Node.js companion app and score tracker for the role-playing card game \"Munchkin\" by Steve Jackson.",
+	"orientation": "portrait",
+	"icons": [
+		{
+			"src": "img/icon/icon-app.png",
+			"sizes": "48x48",
+			"type": "image/png"
+		},
+		{
+			"src": "img/icon/icon-app@1,5x.png",
+			"sizes": "72x72",
+			"type": "image/png"
+		},
+		{
+			"src": "img/icon/icon-app@2x.png",
+			"sizes": "96x96",
+			"type": "image/png"
+		},
+		{
+			"src": "img/icon/icon-app@3x.png",
+			"sizes": "144x144",
+			"type": "image/png"
+		}
+	]
 }
