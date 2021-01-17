@@ -33,14 +33,19 @@ export default {
 	data() {
 		return {
 			modal: false,
-			url: window.location.href,
 			copySuccess: false
 		}
 	},
 	computed: {
 		...mapGetters('players', [
 			'players'
-		])
+		]),
+    ...mapGetters('party', [
+      'id'
+    ]),
+    url: function() {
+		  return window.location.href.split('?')[0] + '?party=' + this.id;
+    }
 	},
 	mounted() {
 		if (this.players.length === 1) this.openModal();
