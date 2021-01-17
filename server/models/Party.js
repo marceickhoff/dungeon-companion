@@ -16,6 +16,8 @@ class Party {
 	id;
 
 	/**
+	 * Contains the party timeout.
+	 * @type Number
 	 */
 	timeout;
 
