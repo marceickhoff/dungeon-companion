@@ -1,0 +1,40 @@
+//----------------------------------------------------------------------------------------------------------------------
+// TALLY COUNTER
+//----------------------------------------------------------------------------------------------------------------------
+
+.tally-counter {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	margin: 0 .5em;
+
+	// Buttons for increasing and decreasing the value
+	.tally-counter-increase, .tally-counter-decrease {
+		width: 3em;
+		height: 3em;
+	}
+
+	// Label for the counter
+	.tally-counter-label {
+		margin-top: 1em;
+		margin-bottom: .5em;
+		white-space: nowrap;
+		color: $font-color-light;
+
+		// Compensate missing button with margin
+		&:first-child {
+			margin-top: 4em;
+		}
+	}
+
+	// Counter value
+	.tally-counter-value {
+		font-size: 2em;
+		margin-bottom: .5em;
+
+		// Compensate missing button with margin
+		&:last-child {
+			margin-bottom: 2em;
+		}
+	}
+}

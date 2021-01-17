@@ -1,0 +1,58 @@
+//----------------------------------------------------------------------------------------------------------------------
+// LEADERBOARD
+//----------------------------------------------------------------------------------------------------------------------
+
+// Container
+.leaderboard {
+	overflow-x: hidden;
+	overflow-y: auto;
+	max-height: 100%;
+
+	// Fixed height for table header (similar to .header)
+	table {
+		thead {
+			th {
+				height: 3em;
+			}
+		}
+	}
+
+	// Player name column
+	.leaderboard-name {
+		overflow: hidden;
+		width: 55%;
+		text-align: left;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+
+	// Other columns
+	.leaderboard-level, .leaderboard-bonus, .leaderboard-total {
+		width: 15%;
+		text-align: center;
+	}
+
+	// Applied to name cell when a player reaches level 9
+	.leaderboard-level-alert {
+		animation: flashing $transition-duration $transition-function 0s infinite alternate;
+		color: $color-error;
+	}
+
+	// Applied to name cell when a player reaches level 10
+	.leaderboard-level-finish {
+		transform: scale(1.25);
+		color: $color-secondary;
+		text-shadow: 0 0 1em $color-secondary;
+	}
+}
+
+// Keyframes for flashing animation
+@keyframes flashing {
+	from {
+		transform: scale(1);
+	}
+	to {
+		transform: scale(1.25);
+		text-shadow: 0 0 1em $color-error;
+	}
+}

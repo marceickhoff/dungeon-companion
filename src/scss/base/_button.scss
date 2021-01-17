@@ -1,0 +1,80 @@
+button {
+	font: inherit;
+	color: inherit;
+	border: none;
+	background: none;
+}
+
+a.button {
+	color: inherit;
+}
+
+.button {
+	display: inline-block;
+	overflow: hidden;
+	transition: all .1s $transition-function;
+	transition-property: margin, padding, box-shadow;
+	text-align: center;
+	vertical-align: middle;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	border-radius: $border-radius;
+
+	&:active {
+		transition: none;
+	}
+
+	&.big {
+		padding: .5em 1em .75em;
+		color: #fff;
+		border: none;
+		background: $color-secondary;
+		box-shadow: 0 -.25em 0 rgba($color-primary, .2) inset, 0 0 0 0 transparent inset, 0 0.1em 0.25em rgba($color-primary, .4), 0 0 1em rgba(lighten($body-background-color, 5%), .2) inset;
+
+		&[disabled] {
+			color: rgba(lighten($body-background-color, 5%), .5);
+		}
+
+		&.success {
+			background: $color-success;
+		}
+
+		&.error {
+			background: $color-error;
+		}
+
+		&:not([disabled]):active {
+			margin-top: .25em;
+			padding-bottom: .5em;
+			box-shadow: 0 .1em 0 rgba($color-primary, .1) inset, 0 .1em .5em 0 rgba($color-primary, .2) inset, 0 0 0 0 transparent, 0 -.1em 1em rgba(lighten($body-background-color, 5%), .2) inset;
+		}
+	}
+
+	&:not(.big) {
+		padding: .25em .5em;
+		box-shadow: 0 .5px 0 .5px rgba($color-primary, .2) inset, 0 .5em .5em 0 rgba($color-primary, .05) inset, 0 0 0 0 transparent inset, 0 .25em .5em 0 rgba($color-primary, 0.2), 0 -.25em .5em 0 rgba(lighten($body-background-color, 5%), 0.7);
+
+		&:not([disabled]):active {
+			padding-top: .375em;
+			padding-bottom: .125em;
+			box-shadow: 0 .125em 0 0 rgba($color-primary, .2) inset, 0 .25em .25em .1em rgba($color-primary, .2) inset, 0 .75em .5em 0 rgba($color-primary, .05) inset, 0 .25em .5em 0 rgba($color-primary, 0.2), 0 -.25em .5em 0 rgba(lighten($body-background-color, 5%), 0.7);
+		}
+
+		&.inverted {
+			box-shadow: 0 .5px 0 .5px rgba(darken($color-primary, 20%), .2) inset, 0 .5em .5em 0 rgba(darken($color-primary, 20%), .05) inset, 0 0 0 0 transparent inset, 0 .25em .5em 0 rgba(darken($color-primary, 20%), 0.2), 0 -.25em .5em 0 rgba($body-background-color, 0.05);
+
+			&:active {
+				box-shadow: 0 .125em 0 0 rgba(darken($color-primary, 20%), .2) inset, 0 .25em .25em .1em rgba(darken($color-primary, 20%), .2) inset, 0 .75em .5em 0 rgba(darken($color-primary, 20%), .05) inset, 0 .25em .5em 0 rgba(darken($color-primary, 20%), 0.2), 0 -.25em .5em 0 rgba($body-background-color, 0.05);
+			}
+		}
+
+		&.primary {
+			color: lighten($body-background-color, 5%);
+			background-color: $color-primary;
+		}
+
+		&[disabled] {
+			color: rgba($font-color, .25);
+		}
+	}
+}
