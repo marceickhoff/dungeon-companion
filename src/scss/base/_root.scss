@@ -3,9 +3,9 @@
 //----------------------------------------------------------------------------------------------------------------------
 
 :root {
-	font-size: 4vw;
+	font-size: $font-size;
 
 	@media all and (orientation: landscape) {
-		font-size: 2vw;
+		font-size: $font-size-portrait;
 	}
 }
