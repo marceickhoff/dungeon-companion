@@ -64,6 +64,7 @@ export default {
       event.preventDefault();
       this.closeModal();
       this.name = this.self.name;
+      this.error = false;
     },
     submit: function(event) {
       console.log('test');
