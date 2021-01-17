@@ -50,7 +50,7 @@ import Modal from '../../base/Modal';
 import Monster from '../partials/Monster';
 import Player from '../partials/Player';
 import Leaderboard from "./Leaderboard";
-import {mapActions, mapGetters} from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
 	components: {
@@ -79,12 +79,12 @@ export default {
 		...mapGetters('monsters', [
 			'monsters'
 		]),
-		playerStrength: function() {
+		playerStrength: function () {
 			let strength = this.initiator.level + this.initiator.bonus + this.initiator.mod;
 			if (this.assist) strength += this.assist.level + this.assist.bonus + this.assist.mod;
 			return strength;
 		},
-		monsterStrength: function() {
+		monsterStrength: function () {
 			let strength = 0;
 			this.monsters.forEach(monster => strength += monster.level + monster.mod);
 			return strength;

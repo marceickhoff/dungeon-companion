@@ -15,28 +15,29 @@ export default {
 			required: true
 		}
 	},
-  data() {
-    return {
-      uri: null
-    }
-  },
-  mounted() {
-	  this.setUri();
-  },
-  watch: {
-	  data: function() {
-	    this.setUri();
-    }
+	data() {
+		return {
+			uri: null
+		}
 	},
-  methods: {
-	  setUri: function() {
-      QRCode.toDataURL(
-        this.data, {
-          scale: 10
-        }, (err, uri) => {
-          this.uri = uri;
-        });
-    }
-  }
+	mounted() {
+		this.setUri();
+	},
+	watch: {
+		data: function () {
+			this.setUri();
+		}
+	},
+	methods: {
+		setUri: function () {
+			QRCode.toDataURL(
+				this.data, {
+					scale: 10
+				}, (err, uri) => {
+					this.uri = uri;
+				}
+			);
+		}
+	}
 }
 </script>

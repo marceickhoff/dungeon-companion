@@ -11,7 +11,7 @@
 </template>
 <script>
 import TallyCounter from '../../base/TallyCounter';
-import {mapActions} from "vuex";
+import { mapActions } from "vuex";
 
 export default {
 	components: {
@@ -35,32 +35,32 @@ export default {
 		...mapActions('players', [
 			'updatePlayer'
 		]),
-		showTally: function(tally) {
+		showTally: function (tally) {
 			return !this.tallies || this.tallies.find(t => t === tally);
 		},
-		increaseLevel: function() {
+		increaseLevel: function () {
 			if (this.data.level < 10) {
-				this.update({ level: this.data.level + 1 });
+				this.update({level: this.data.level + 1});
 			}
 		},
-		decreaseLevel: function() {
+		decreaseLevel: function () {
 			if (this.data.level > 1) {
-				this.update({ level: this.data.level - 1 });
+				this.update({level: this.data.level - 1});
 			}
 		},
-		increaseBonus: function() {
-			this.update({ bonus: this.data.bonus + 1 });
+		increaseBonus: function () {
+			this.update({bonus: this.data.bonus + 1});
 		},
-		decreaseBonus: function() {
-			this.update({ bonus: this.data.bonus - 1 });
+		decreaseBonus: function () {
+			this.update({bonus: this.data.bonus - 1});
 		},
-		increaseMod: function() {
-			this.update({ mod: this.data.mod + 1 });
+		increaseMod: function () {
+			this.update({mod: this.data.mod + 1});
 		},
-		decreaseMod: function() {
-			this.update({ mod: this.data.mod - 1 });
+		decreaseMod: function () {
+			this.update({mod: this.data.mod - 1});
 		},
-		update: function(data) {
+		update: function (data) {
 			this.updatePlayer(Object.assign({}, this.data, data));
 		}
 	}

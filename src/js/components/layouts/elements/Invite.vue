@@ -21,7 +21,7 @@
 <script>
 import Modal from '../../base/Modal'
 import QRCode from '../../base/QRCode'
-import {mapGetters} from 'vuex';
+import { mapGetters } from 'vuex';
 
 const copy = require('clipboard-copy')
 
@@ -40,28 +40,28 @@ export default {
 		...mapGetters('players', [
 			'players'
 		]),
-    ...mapGetters('party', [
-      'id'
-    ]),
-    url: function() {
-		  return window.location.href.split('?')[0] + '?party=' + this.id;
-    }
+		...mapGetters('party', [
+			'id'
+		]),
+		url: function () {
+			return window.location.href.split('?')[0] + '?party=' + this.id;
+		}
 	},
 	mounted() {
 		if (this.players.length === 1) this.openModal();
 	},
 	methods: {
-		openModal: function() {
+		openModal: function () {
 			this.modal = true;
 		},
 		closeModal: function () {
 			this.modal = false;
 		},
-		setCopySuccess: function() {
+		setCopySuccess: function () {
 			this.copySuccess = true;
 			setTimeout(() => this.copySuccess = false, 2000);
 		},
-		copyUrlToClipboard: function() {
+		copyUrlToClipboard: function () {
 			let promise = copy(this.url);
 			if (Modernizr.promises) promise.then(this.setCopySuccess).catch(() => alert('Failed to copy link to clipboard! Please copy the link manually from the web address bar of your browser.'));
 			else this.setCopySuccess();
