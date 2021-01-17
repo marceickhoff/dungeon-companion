@@ -9,8 +9,8 @@
 					<error-message message="Please enter a name" v-if="error"/>
 					<input id="name" type="text" minlength="1" :maxlength="config.maxNameLength" v-model="name" autocomplete="off">
 					<div class="modal-actions">
-						<button class="button big success" type="submit"><fa icon="check"/>Save</button>
-						<button class="button big error" type="reset" @click="cancel"><fa icon="times"/>Cancel</button>
+						<button class="button big success" type="submit"><fa icon="check"/> Save</button>
+						<button class="button big error" type="reset" @click="cancel"><fa icon="times"/> Cancel</button>
 					</div>
 				</form>
 			</slot>
